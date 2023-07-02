@@ -4,6 +4,14 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    jsx: true,
+  },
+  server: {
+    mimeTypes: {
+      'text/javascript': ['js'],
+    },
+  },
   resolve: {
       alias: [
       {
