@@ -1,11 +1,11 @@
 import React from 'react'
 import Header from '../components/header/Header'
-import Recharge from '../components/userComponent/recharge/recharge'
+import Recharges from '../components/userComponent/recharge/Recharges'
 const RechargePage = () => {
   return (
     <div>
 <Header/>
-<Recharge/>
+<Recharges/>
     </div>
   )
 }
