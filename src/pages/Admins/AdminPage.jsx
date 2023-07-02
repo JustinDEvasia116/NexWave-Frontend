@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Dashboard from '../../components/adminComponent/dashboard/dashboard';
+import Dashboards from '../../components/adminComponent/dashboard/Dashboards';
 import AdminHeader from '../../components/header/AdminHeader';
 import RechargePlans from '../../components/adminComponent/plans&categories/RechargePlans';
 import UserManagement from '../../components/adminComponent/usermanagement/UserManagement';
@@ -48,7 +48,7 @@ function AdminPage() {
   // Set the componentToRender based on the activeNavItem
   switch (activeNavItem) {
     case 'dashboard':
-      componentToRender = <Dashboard />;
+      componentToRender = <Dashboards />;
       break;
     case 'recharge-plans':
       componentToRender = <RechargePlans />;
