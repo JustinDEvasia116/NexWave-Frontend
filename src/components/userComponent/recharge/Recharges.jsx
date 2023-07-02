@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './recharge.css'; // Import your CSS file for recharge page styling
+import './Recharge.css'; // Import your CSS file for recharge page styling
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
