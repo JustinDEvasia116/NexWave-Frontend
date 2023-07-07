@@ -1,7 +1,7 @@
 import './PendingConections.css';
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { adminInstance } from '../../../axios';
 import { FaBan, FaCheck, FaTrash } from 'react-icons/fa';
 
 function PendingConnections() {
@@ -14,7 +14,7 @@ function PendingConnections() {
 
   const fetchConnections = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/admins/pending-connections/', {
+      const response = await adminInstance.get('pending-connections/', {
         headers: {
           'Content-type': 'application/json',
           Authorization: 'Bearer ' + String(authTokens.access),
@@ -30,7 +30,7 @@ function PendingConnections() {
   const handleApprove = async (connectionId) => {
     console.log(connectionId)
     try {
-      await axios.put(`http://127.0.0.1:8000/admins/pending-connections/${connectionId}/actions/`, {
+      await adminInstance.put(`pending-connections/${connectionId}/actions/`, {
         approved: 'true',
       }, {
         headers: {
@@ -48,7 +48,7 @@ function PendingConnections() {
 
   const handleReject = async (connectionId) => {
     try {
-      await axios.put(`http://127.0.0.1:8000/admins/pending-connections/${connectionId}/actions/`, {
+      await adminInstance.put(`pending-connections/${connectionId}/actions/`, {
         approved: 'false',
       }, {
         headers: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './UserManagement.css'
+import { adminInstance } from '../../../../axios';
 
 function UserManagement() {
   const [users, setUsers] = useState([]);
@@ -13,20 +14,21 @@ function UserManagement() {
 
   const getUserList = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/admins/users/', {
+      const response = await adminInstance.get('/users/', {
         headers: {
           'Content-type': 'application/json',
           Authorization: 'Bearer ' + String(authTokens.access),
         },
       });
-
+  
       console.log('response data:', response.data);
       setUsers(response.data);
+      console.log("users:",users);
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   return (
     <div>
       <h2>User Management</h2>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Chatbot.css';
+import { adminInstance } from '../../../../axios';
 
 const Chatbot = () => {
   const [currentOption, setCurrentOption] = useState(null);
@@ -13,7 +14,7 @@ const Chatbot = () => {
 
   const fetchOptions = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/admins/chat-options/');
+      const response = await adminInstance.get('chat-options/');
       setOptions(response.data);
       setCurrentOption(response.data[0]); // Set the root option as the initial current option
     } catch (error) {

@@ -7,6 +7,7 @@ import useRazorpay from 'react-razorpay'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'; 
+import { instance } from '../../../../axios';
 
 const Payment = () => {
   const selectedPrice = useSelector((state) => state.auth.selectedPrice);
@@ -29,7 +30,7 @@ const Payment = () => {
 
         
         try {
-          const response = await axios.post('http://127.0.0.1:8000/api/create-subscription/', {
+          const response = await instance.post('create-subscription/', {
             recharge_plan_id: selectedPlan,
             other_field: "other_value"
           }, {

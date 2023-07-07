@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedPrice, setSelectedPlan, setSelectedNumber } from '../../../features/auth/authSlice';
 import jwt_decode from 'jwt-decode';
+import { adminInstance } from '../../../../axios';
 
 const Recharges = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -28,8 +29,8 @@ const Recharges = () => {
 
   useEffect(() => {
     // Fetch and set the categories
-    axios
-      .get('http://127.0.0.1:8000/admins/categories/')
+    adminInstance
+      .get('categories/')
       .then((response) => {
         setCategories(response.data);
         console.log(response.data); // Log the response data
@@ -38,8 +39,8 @@ const Recharges = () => {
 
     // Fetch and set the recharge plans based on the selected category
     // Replace this with your own logic to fetch the data from your backend
-    axios
-      .get('http://127.0.0.1:8000/admins/recharge-plans/')
+    adminInstance
+      .get('recharge-plans/')
       .then((response) => {
         setAllplans(response.data);
         const filteredPlans = response.data.filter((plan) => plan.category === 1);

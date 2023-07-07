@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './RechargePlans.css';
+import { adminInstance } from '../../../../axios';
+import { useNavigate } from 'react-router-dom';
 
 function RechargePlans() {
   const [plans, setPlans] = useState([]);
   const authTokens = JSON.parse(localStorage.getItem('authTokens'));
+  const navigate = useNavigate();
   useEffect(() => {
     getPlanDetails();
   }, []);
 
   const getPlanDetails = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/admins/recharge-plans/', {
+      const response = await adminInstance.get('recharge-plans/', {
         headers: {
           'Content-type': 'application/json',
           Authorization: 'Bearer ' + String(authTokens.access),
@@ -24,10 +27,23 @@ function RechargePlans() {
       console.log(error);
     }
   };
+  const handleAddPlan = () => {
+    navigate('/admins/recharge/add');
+  };
+  const handleEditPlan = (plan) => {
+    navigate('/admins/recharge/edit', { state: { plan } });
+  };
+  const handleDeletePlan = (plan) => {
+    console.log('Deleting plan:', plan);
+  };
+
 
   return (
     <div className="recharge-plans-container">
-      <h2 className="recharge-plans-heading">Recharge Plans</h2>
+      <div className="recharge-header">
+        <h2 className="recharge-plans-heading">Recharge Plans</h2>
+        <button className="add-button" onClick={handleAddPlan}>Add Plan</button>
+      </div>
       <table className="recharge-plans-table">
         <thead>
           <tr>
@@ -50,10 +66,10 @@ function RechargePlans() {
               <td>${plan.price}</td>
               <td>{plan.category}</td>
               <td>
-                <button onClick={() => handleDeletePlan(plan.id)} className="recharge-plans-action-btn">
+                <button onClick={() => handleDeletePlan(plan)} className="recharge-plans-action-btn">
                   Delete
                 </button>
-                <button className="recharge-plans-action-btn">
+                <button onClick={() => handleEditPlan(plan)} className="recharge-plans-action-btn">
                   Edit
                 </button>
               </td>

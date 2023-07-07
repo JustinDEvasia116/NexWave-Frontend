@@ -3,6 +3,7 @@ import './Login.css';
 import { userLogin } from '../../../features/auth/authSlice';
 import { connect, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { instance } from '../../../../axios';
 
 function Login(props) {
   const [otpMode, setOtpMode] = useState(false);
@@ -28,14 +29,8 @@ function Login(props) {
     const formattedMobileNumber = "+91"+ mobileNumber;
     setMob_Number(formattedMobileNumber)
     // // Make a POST request to the API endpoint
-    const response = await fetch('http://127.0.0.1:8000/api/generate-otp/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        mob_number: formattedMobileNumber,
-      }),
+    const response = await instance.post('generate-otp/', {
+      mob_number: formattedMobileNumber,
     });
       // Handle the response
     if (response.ok) {
@@ -73,12 +68,12 @@ function Login(props) {
   return (
     <div className="login-body">
       <div className="left-section">
-        <h2>Manage your Digital Life with the MyJio app</h2>
+        <h2>Manage your Digital Life with the NexWave app</h2>
         <div>
           <h3>Recharge, pay bills, and check balance</h3>
           <h3>Shop, UPI, and health</h3>
           <h3>Movies, music, and games</h3>
-          <h3>Instant help with JioCare</h3>
+          <h3>Instant help with NexWave</h3>
         </div>
       </div>
       <div className="right-section">

@@ -4,6 +4,7 @@ import { logout } from '../../../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { instance } from '../../../../axios';
 
 // import settingsIcon from '../../../assets/settingsIcon.svg';
 
@@ -21,7 +22,7 @@ const Profiles = () => {
 
     const getUserDetails = async () => {
         try {
-          const response = await axios.get('http://127.0.0.1:8000/api/user-details/', {
+          const response = await instance.get('user-details/', {
             headers: {
               'Content-type': 'application/json',
               Authorization: 'Bearer ' + String(authTokens.access),

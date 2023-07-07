@@ -15,7 +15,8 @@ import RechargePage from './pages/RechargePage';
 import PaymentPage from './pages/PaymentPage';
 import ChatbotPage from './pages/ChatbotPage';
 import AddOptionPage from './pages/Admins/AddOptionPage';
-
+import AddnewplanPage from './pages/Admins/AddnewplanPage';
+import EditPlanPage from './pages/Admins/EditPlanPage';
 
 function App() {
   return (
@@ -53,6 +54,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/chatbot" element={<ChatbotPage/>} />
         <Route path="/admins/chatmanager" element={<AddOptionPage/>} />
+        <Route path="/admins/recharge/add" element={<AddnewplanPage/>} />
+        <Route path="/admins/recharge/edit" element={<EditPlanPage/>} />
         
         <Route path="/recharge" element={<RechargePage />} />
         <Route path="/payment" element={<PaymentPage />} />

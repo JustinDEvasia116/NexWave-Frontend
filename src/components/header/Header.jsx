@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header>
       <div className="logo">
-        <img src="/path/to/company_logo.png" alt="Company Logo" />
+        <img src="https://img.freepik.com/premium-vector/letter-n-arrow-logo-template_23987-64.jpg?w=360" alt="Company Logo" />
       </div>
       <nav className="navigation">
         <ul>
@@ -27,7 +27,7 @@ const Header = () => {
         </ul>
       </nav>
       <div className="profile-logo">
-        <img src="/path/to/profile_logo.png" alt="Profile Logo" />
+        <img src="https://e7.pngegg.com/pngimages/442/477/png-clipart-computer-icons-user-profile-avatar-profile-heroes-profile.png" alt="Profile Logo" />
       </div>
     </header>
   );

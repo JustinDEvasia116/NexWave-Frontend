@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
+import { adminInstance, instance } from '../../../axios';
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -63,7 +64,7 @@ export const adminLogin = (username, password) => async (dispatch,getState) => {
     console.log('username: ', username)
     console.log('password: ', password)
 
-    const response = await axios.post('http://127.0.0.1:8000/admins/admin-token/', {
+    const response = await adminInstance.post('admin-token/', {
       username: username,
       password: password,
     }).catch((error) => {
@@ -100,7 +101,7 @@ export const userLogin = (mob_number, otp) => async (dispatch) => {
     console.log('mob_number: ', mob_number)
     console.log('otp: ', otp)
 
-    const response = await axios.post('http://127.0.0.1:8000/api/user-login/', {
+    const response = await instance.post('user-login/', {
       mob_number:mob_number,
       otp:otp,
     }).catch((error) => {
@@ -127,7 +128,7 @@ export const updateToken = () =>async (dispatch,getState)=>{
   try {
     const authTokens = JSON.parse(localStorage.getItem('authTokens'));
     console.log("sending: ",authTokens?.refresh)
-    const response = await axios.post('http://127.0.0.1:8000/api/token/refresh/', {
+    const response = await instance.post('token/refresh/', {
       'refresh': authTokens?.refresh
     }).catch((error) => {
       console.log('error', error.message)

@@ -6,6 +6,7 @@ import deliveryIcon from '../../../assets/SimcardIcon.svg';
 import axios from 'axios';
 import { auth } from '../../../config/firebase';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { instance } from '../../../../axios';
 
 function Registration() {
     const [showOTP, setShowOTP] = useState(false);
@@ -108,7 +109,7 @@ function Registration() {
         };
       
         try {
-          const response = await axios.post('http://127.0.0.1:8000/api/connections/create/', data);
+          const response = await instance.post('connections/create/', data);
       
           console.log(response.data); // Handle the response as per your requirements
       
@@ -163,7 +164,7 @@ function Registration() {
                                 <div className='adress'>
 
                                     <h2>Deliver Here</h2>
-                                    <p>Where do you want your new Jio SIM to be delivered?</p>
+                                    <p>Where do you want your new NexWave SIM to be delivered?</p>
                                     <form onSubmit={handleSubmit}>
                                         <input type="text" name="flatHouseNo" placeholder="Flat, House No., Floor, Company" />
                                         <input type="text" name="location" placeholder="Location" />

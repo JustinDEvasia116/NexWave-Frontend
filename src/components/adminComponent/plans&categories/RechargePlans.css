@@ -6,7 +6,15 @@
     font-size: 24px;
     margin-bottom: 10px;
   }
+  .recharge-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-right: 2rem;
+  }
   
+
   .recharge-plans-table {
     width: 100%;
     border-collapse: collapse;

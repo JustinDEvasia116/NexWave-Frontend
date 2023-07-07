@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AddOption.css';
+import { adminInstance } from '../../../../axios';
 
 const AddOption = () => {
   const [parentOption, setParentOption] = useState('');
@@ -13,7 +14,7 @@ const AddOption = () => {
 
   const fetchOptions = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/admins/chat-options/');
+      const response = await adminInstance.get('chat-options/');
       setOptions(response.data);
     } catch (error) {
       console.error(error);
@@ -33,7 +34,7 @@ const AddOption = () => {
     console.log("parent id: ",parentOption)
     console.log("option: ",childOption)
     try {
-      await axios.post(`http://127.0.0.1:8000/admins/options/${parentOption}/child/`, {
+      await adminInstance.post(`options/${parentOption}/child/`, {
         text: childOption,
       });
       setChildOption('');
