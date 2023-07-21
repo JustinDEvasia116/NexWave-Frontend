@@ -1,6 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import "./AddnewPlan.css"
 import { adminInstance } from '../../../../axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const AddnewPlan = () => {
@@ -18,7 +21,7 @@ const AddnewPlan = () => {
   
     // Perform form validation
     if (!name || !dataLimit || !voiceLimit || !smsLimit || !price || !validity || !category) {
-      alert('Please fill in all fields');
+      toast.error('Please fill in all fields');
       return;
     }
   
@@ -146,7 +149,13 @@ const AddnewPlan = () => {
         </div>
 
     <div className="form-fields">
+
+
+      <div className='addcat'>
       <label htmlFor="category">Category:</label>
+      <a href="/admins/category/add" title="Add category">Add category</a>
+      </div>
+
       <select
         id="category"
         value={category}

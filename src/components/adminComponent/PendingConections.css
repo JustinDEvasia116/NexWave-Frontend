@@ -103,4 +103,61 @@
   .search-container input[type=text]:focus {
     outline: none;
   }
-  
+/* PendingConnections.css */
+/* ... (existing styles) ... */
+
+/* CSS for the thumbnail */
+.thumbnail-container {
+  cursor: pointer;
+}
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* CSS for the lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.lightbox-content {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+  text-align: center;
+}
+
+/* CSS for the full-size photo */
+.full-size-photo {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ... (existing styles) ... */

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import { adminLogin } from '../../features/auth/authSlice';
 import './AdminLogin.css'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AdminLogin(props) {
     const navigate = useNavigate();
@@ -22,17 +24,17 @@ function AdminLogin(props) {
   
       try {
         const response = await props.adminLogin (formData.get('username'), formData.get('password'));
-        console.log('response: ', response);
         if (response.status === 200) {
           // Authentication succeeded
+          toast.success("Welcome Admin")
           navigate('/admins');
         } else {
           // Authentication failed
-          alert('Failed to authenticate. Please try again.');
+          toast.error('Failed to authenticate. Please try again.');
         }
       } catch (error) {
         console.error('Error:', error);
-        alert(error);
+        toast.error(error.message); 
       }
     };
 

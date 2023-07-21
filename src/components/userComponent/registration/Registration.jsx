@@ -7,6 +7,9 @@ import axios from 'axios';
 import { auth } from '../../../config/firebase';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { instance } from '../../../../axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Registration() {
     const [showOTP, setShowOTP] = useState(false);
@@ -18,18 +21,18 @@ function Registration() {
     const [otp, setOtp] = useState(null)
     const [recaptchaVerifier, setRecaptchaVerifier] = useState(null);
     const [selectedPlan, setSelectedPlan] = useState(null)
-  
+
 
     const handleGenerateOTP = async (e) => {
         e.preventDefault();
         if (!name || !/^[A-Za-z]+$/.test(name)) {
-            alert('Please enter a valid name');
+            toast.error('Please enter a valid name');
             return;
         }
 
         // Validate mobile number input
         if (!mobileNumber || !/^\d{10}$/.test(mobileNumber)) {
-            alert('Please enter a valid mobile number');
+            toast.error('Please enter a valid mobile number');
             return;
         }
 
@@ -51,7 +54,7 @@ function Registration() {
     const handleNext = async (e) => {
         e.preventDefault();
         if (!otp || !/^\d{6}$/.test(otp)) {
-            alert('Please enter a valid OTP ');
+            toast.error('Please enter a valid OTP ');
             return;
         }
         try {
@@ -61,8 +64,8 @@ function Registration() {
             // You can store the user details in your database here
         } catch (error) {
             console.log(error);
-              alert('Incorrect OTP. Please try again.');
-              return;
+            toast.error('Incorrect OTP. Please try again.');
+            return;
         }
         setShowPlanSelection(true);
         setShowOTP(false);
@@ -88,28 +91,30 @@ function Registration() {
         const location = e.target.elements.location.value.trim();
         const area = e.target.elements.area.value.trim();
         const pincode = e.target.elements.pincode.value.trim();
+   
       
         if (!buildingName || !location || !area || !pincode) {
-          alert('Please fill in all the required fields.');
+          toast.error('Please fill in all the required fields.');
           return;
         }
       
-        const address = {
-          street: buildingName,
-          city: location,
-          state: area,
-          zip_code: pincode
-        };
-      
-        const data = {
-          mob_number,
-          connection_type: selectedPlan,
-          address,
-          profile_name: name
-        };
+        const formData = new FormData();
+        formData.append('mob_number', mob_number);
+        formData.append('connection_type', selectedPlan);
+        formData.append('address.street', buildingName);
+        formData.append('address.city', location);
+        formData.append('address.state', area);
+        formData.append('address.zip_code', pincode);
+        formData.append('profile_name', name);
+        formData.append('document_file', e.target.elements.identityDocument.files[0]);
+        formData.append('photo', e.target.elements.photo.files[0]);
       
         try {
-          const response = await instance.post('connections/create/', data);
+          const response = await instance.post('connections/create/', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
       
           console.log(response.data); // Handle the response as per your requirements
       
@@ -163,17 +168,25 @@ function Registration() {
                             {showAddressInput ? (
                                 <div className='adress'>
 
-                                    <h2>Deliver Here</h2>
-                                    <p>Where do you want your new NexWave SIM to be delivered?</p>
-                                    <form onSubmit={handleSubmit}>
-                                        <input type="text" name="flatHouseNo" placeholder="Flat, House No., Floor, Company" />
-                                        <input type="text" name="location" placeholder="Location" />
-                                        <input type="text" name="area" placeholder="Area" />
-                                        <input type="text" name="pincode" placeholder="Pincode" />
-                                        
-                                        <button type="submit">Book SIM Delivery</button>
-                                    </form>
-                                </div>
+                                <h2>Deliver Here</h2>
+                                <p>Where do you want your new NexWave SIM to be delivered?</p>
+                                <form onSubmit={handleSubmit}>
+                                    <input type="text" name="flatHouseNo" placeholder="Flat, House No., Floor, Company" />
+                                    <input type="text" name="location" placeholder="Location" />
+                                    <input type="text" name="area" placeholder="Area" />
+                                    <input type="text" name="pincode" placeholder="Pincode" />
+                                    <div className="file-upload">
+                                        <label htmlFor="identityDocument">Your Adhaar (JPG, JPEG, PNG, PDF)</label>
+                                        <input type="file" id="identityDocument" name="identityDocument" accept=".jpg,.jpeg,.png,.pdf" />
+                                    </div>
+
+                                    <div className="file-upload">
+                                        <label htmlFor="photo">Your Photo (JPG, JPEG, PNG)</label>
+                                        <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" />
+                                    </div>
+                                    <button type="submit">Book SIM Delivery</button>
+                                </form>
+                            </div>
                             ) : (
                                 <div className='card-body'>
                                     <h2>Get a SIM</h2>
@@ -196,6 +209,7 @@ function Registration() {
                                         <button type="submit" onClick={handleGenerateOTP}>Generate OTP</button>
                                     </form>
                                 </div>
+
                             )}
                         </div>
                     )}

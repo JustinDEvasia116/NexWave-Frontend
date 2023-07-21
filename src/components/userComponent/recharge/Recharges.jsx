@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedPrice, setSelectedPlan, setSelectedNumber } from '../../../features/auth/authSlice';
 import jwt_decode from 'jwt-decode';
-import { adminInstance } from '../../../../axios';
+import { adminInstance, instance } from '../../../../axios';
 
 const Recharges = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -24,7 +24,9 @@ const Recharges = () => {
   const recharge_num = accessToken && jwt_decode(accessToken).username;
 
   useEffect(() => {
-    setRechargeNum(recharge_num.substring(3));
+    if (recharge_num) {
+      setRechargeNum(recharge_num.substring(3));
+    }
   }, []);
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const Recharges = () => {
       .catch((error) => console.error(error));
 
     setSelectedCategory('Popular Plans');
-  }, []);
+  }, [rechargeNum]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -61,16 +63,16 @@ const Recharges = () => {
       setRechargeNum(input);
       setInputError('');
     } else {
-      setInputError('Only 10 digits are allowed.');
+      setInputError('Only digits are allowed.');
     }
   };
 
   const handlePageClick = (event) => {
     if (parentRef.current && !parentRef.current.contains(event.target)) {
+      console.log("numberlength: ", rechargeNum.length)
+      console.log("numberlength: ", rechargeNum)
       if (rechargeNum.length === 10) {
         setIsEditing(false);
-      } else {
-        setInputError('Please enter 10 digits.');
       }
     }
   };
@@ -89,10 +91,28 @@ const Recharges = () => {
 
   const parentRef = useRef(null);
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = async (category) => {
     setSelectedCategory(category.name);
-    const filteredPlans = allPlans.filter((plan) => plan.category === category.id);
-    setRechargePlans(filteredPlans);
+
+    // If the category is "Recommended Plans," make an API call to fetch the recommended plans
+    if (category.name === "Recommended Plans") {
+      try {
+        const authTokens = JSON.parse(localStorage.getItem('authTokens'));
+        const response = await instance.get('recommended_plans/', {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        setRechargePlans(response.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    } else {
+      // For other categories, filter the plans based on the category ID as before
+      const filteredPlans = allPlans.filter((plan) => plan.category === category.id);
+      setRechargePlans(filteredPlans);
+    }
   };
 
   const handleBuyButtonClick = (plan) => {
@@ -116,6 +136,7 @@ const Recharges = () => {
                   onChange={handleInputChange}
                   maxLength={10}
                   className="input-field" // Add the class name here
+                  placeholder='Enter Mobile Number'
                 />
 
                 {inputError && <p className="input-error">{inputError}</p>}
@@ -132,6 +153,7 @@ const Recharges = () => {
                     maxLength={10}
                     style={{ border: 'none', outline: 'none' }}
                     readOnly
+                    placeholder='Enter Mobile Number'
                   />
                 )}
                 <button className="edit-button" onClick={handleEditClick}>
@@ -163,7 +185,7 @@ const Recharges = () => {
                       <li>
                         <div className="plan-item">
                           <h3>Plan</h3>
-                          <p>${plan.price}</p>
+                          <p>${plan.name}</p>
                         </div>
                         <div className="plan-item">
                           <h3>Validity</h3>
@@ -171,7 +193,7 @@ const Recharges = () => {
                         </div>
                         <div className="plan-item">
                           <h3>Data</h3>
-                          <p>{plan.data} GB</p>
+                          <p>{plan.data_limit} GB</p>
                         </div>
                         <a href="#" className="view-details">
                           View Details

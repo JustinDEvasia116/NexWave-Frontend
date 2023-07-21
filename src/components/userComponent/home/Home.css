@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+.slider-container {
+    height: fit-content; /* Increase the height as needed */
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  .slider-image {
+    max-width: 100%;
+    
+  }
+  .slider-item {
+    position: relative;
+    width: 100%;
+    
+  }
+  
+  .content-overlay {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    padding: 10px;
+    color: #ffffff;
+    
+  }
+  
+  .content-heading {
+    margin: 0;
+    padding: 1px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-size: 60px;
+    max-width: 550px;
+  }
+  .svg-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgb(223, 219, 219);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .svg-icon {
+    width: 50%;
+    height: 50%;
+    fill: blue;
+    /* Add any other CSS styles as needed */
+  }
+  
+  .iconscontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    
+  }
+  .icons {
+    display: flex;
+    align-items: center;
+  }
+  .icons h4{
+    margin-top: 1rem;
+  }
+
+  .link-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+  }
+  

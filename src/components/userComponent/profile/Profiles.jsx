@@ -10,31 +10,34 @@ import { instance } from '../../../../axios';
 
 const Profiles = () => {
     // Assuming the user's mobile number is fetched from data or state
-    
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
+    const [subscriptionHistory, setSubscriptionHistory] = useState([]);
     const authTokens = JSON.parse(localStorage.getItem('authTokens'));
 
     useEffect(() => {
-      getUserDetails();
+        getUserDetails();
+        console.log("user", user)
     }, []);
 
     const getUserDetails = async () => {
         try {
-          const response = await instance.get('user-details/', {
-            headers: {
-              'Content-type': 'application/json',
-              Authorization: 'Bearer ' + String(authTokens.access),
-            },
-          });
-    
-          console.log('response data:', response.data);
-          setUser(response.data);
+            const response = await axios.get('http://127.0.0.1:8000/api/user-details/', {
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: 'Bearer ' + String(authTokens.access),
+                },
+            });
+
+            console.log('response data:', response.data);
+            setUser(response.data);
+            setSubscriptionHistory(response.data.subscription_history);
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      };
+    };
 
 
     const handleLogout = () => {
@@ -83,7 +86,7 @@ const Profiles = () => {
                     <h2 className="plan-card-heading">My Plans</h2>
                     <div className="plan-card">
                         <div className="plan-card-header">
-                        <h2>{user.active_subscription?.plan?.name}</h2>
+                            <h2>{user.active_subscription?.plan?.name}</h2>
 
                             <button className="recharge-button">Recharge</button>
                         </div>
@@ -96,7 +99,7 @@ const Profiles = () => {
                                 <h3>Data</h3>
                             </div>
                             <div className="plan-card-right">
-                            <h3>{user.active_subscription?.plan?.data_limit} GB/Day</h3>
+                                <h3>{user.active_subscription?.plan?.data_limit} GB/Day</h3>
                             </div>
                         </div>
                         <hr className="plan-card-divider" />
@@ -105,7 +108,7 @@ const Profiles = () => {
                                 <h3>Voice</h3>
                             </div>
                             <div className="plan-card-right">
-                            <h3>{user.active_subscription?.plan?.voice_limit} mins</h3>
+                                <h3>{user.active_subscription?.plan?.voice_limit} mins</h3>
                             </div>
                         </div>
                         <hr className="plan-card-divider" />
@@ -114,7 +117,7 @@ const Profiles = () => {
                                 <h3>SMS</h3>
                             </div>
                             <div className="plan-card-right">
-                            <h3>{user.active_subscription?.plan?.sms_limit} sms/Day</h3>
+                                <h3>{user.active_subscription?.plan?.sms_limit} sms/Day</h3>
                             </div>
                         </div>
                     </div>
@@ -135,10 +138,16 @@ const Profiles = () => {
                         {dropdownStates[0] && (
                             <div className="dropdown-menu">
                                 <ul>
-                                    {/* Add your dropdown menu items here */}
-                                    <li>Item 1</li>
-                                    <li>Item 2</li>
-                                    <li>Item 3</li>
+                                    {/* Use map to loop through the subscription history and display items */}
+                                    {subscriptionHistory.map((subscription) => (
+                                        <li key={subscription.id}>
+                                            {/* You can display relevant information from the subscription object */}
+                                            {/* For example: */}
+                                            <p>Recharge Date: {subscription.start_date}</p>
+                                            <p>Status: {subscription.is_active?'Active':'Not Active'}</p>
+                                            <p>Plan: {subscription.plan.name}</p>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         )}

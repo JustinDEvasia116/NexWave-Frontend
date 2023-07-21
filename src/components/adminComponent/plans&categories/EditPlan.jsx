@@ -18,7 +18,7 @@ const AddnewPlan = () => {
   
     // Perform form validation
     if (!name || !dataLimit || !voiceLimit || !smsLimit || !price || !validity || !category) {
-      alert('Please fill in all fields');
+      toast.error('Please fill in all fields');
       return;
     }
   

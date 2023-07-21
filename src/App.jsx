@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ProfilePage from './pages/ProfilePage';
 import PendingConnectionsPage from './pages/Admins/PendingConnectionsPage';
@@ -17,10 +19,14 @@ import ChatbotPage from './pages/ChatbotPage';
 import AddOptionPage from './pages/Admins/AddOptionPage';
 import AddnewplanPage from './pages/Admins/AddnewplanPage';
 import EditPlanPage from './pages/Admins/EditPlanPage';
+import HomePage from './pages/HomePage';
+import ChatscreenPage from './pages/ChatscreenPage';
+import AddnewcatPage from './pages/Admins/AddnewcatPage';
 
 function App() {
   return (
-    <Router>
+    <div>
+      <Router>
       <Routes>
       <Route exact path="/profile/*"
             element={
@@ -52,9 +58,12 @@ function App() {
           />
           
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage/>} />
         <Route path="/chatbot" element={<ChatbotPage/>} />
+        <Route path="/chat" element={<ChatscreenPage/>} />
         <Route path="/admins/chatmanager" element={<AddOptionPage/>} />
         <Route path="/admins/recharge/add" element={<AddnewplanPage/>} />
+        <Route path="/admins/category/add" element={<AddnewcatPage />} />
         <Route path="/admins/recharge/edit" element={<EditPlanPage/>} />
         
         <Route path="/recharge" element={<RechargePage />} />
@@ -73,6 +82,10 @@ function App() {
         <Route path="/admins/login" element={<AdminLogin/>} />
       </Routes>
     </Router>
+    <ToastContainer />
+
+    </div>
+    
   );
 }
 

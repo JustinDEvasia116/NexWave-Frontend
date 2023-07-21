@@ -4,6 +4,8 @@ import { userLogin } from '../../../features/auth/authSlice';
 import { connect, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { instance } from '../../../../axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login(props) {
   const [otpMode, setOtpMode] = useState(false);
@@ -22,7 +24,7 @@ function Login(props) {
     if (!isValidMobileNumber) {
       // Display an error message or apply some styling to indicate the validation error
       
-      alert('invalid mobile number');
+      toast.error('invalid mobile number');
       return;
     }
     // // Add +91 to the mobile number
@@ -33,11 +35,14 @@ function Login(props) {
       mob_number: formattedMobileNumber,
     });
       // Handle the response
-    if (response.ok) {
+    if (response.status === 200) {
       setOtpMode(true);
+      toast.success("OTP send successfully")
     } else {
       // Handle error
       console.log('Failed to generate OTP');
+      toast.error("Failed to generate OTP")
+      
     }
     setOtpMode(true);
   };
@@ -52,14 +57,15 @@ function Login(props) {
       console.log('response: ', response);
       if (response.status === 200) {
         // Authentication succeeded
+        toast.success("Welcome User")
         navigate('/profile');
       } else {
         // Authentication failed
-        alert('Failed to authenticate. Please try again.');
+        toast.error('Failed to authenticate. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert(error);
+      toast.error(error);
     }
   };
   

@@ -3,6 +3,8 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import { adminInstance, instance } from '../../../axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -83,10 +85,10 @@ export const adminLogin = (username, password) => async (dispatch,getState) => {
       localStorage.setItem('user', JSON.stringify(decodedToken.user_id));
       dispatch(setUser(decodedToken.username));
       dispatch(setIsAdmin(true));
-      alert("Welcome Admin")
+      
       const authState = getState().auth;
     } else {
-      alert("UnAuthorized")
+      
     }
     return response;
   } catch (error) {
@@ -113,7 +115,6 @@ export const userLogin = (mob_number, otp) => async (dispatch) => {
     localStorage.setItem('authTokens', JSON.stringify(response.data));
     localStorage.setItem('user', JSON.stringify(decodedToken));
     dispatch(setUser(decodedToken.username));
-    alert("Welcome User")
     return response;
   } catch (error) {
     dispatch(setError(error.message));

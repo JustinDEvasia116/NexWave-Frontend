@@ -97,15 +97,7 @@
     margin-bottom: 20px;
 }
 
-.adress input[type="text"] {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: none;
-    border-bottom: 2px solid #6b6868;
-    border-radius: 0 !important;
-    outline: none;
-    width: 100%
-}
+
 
 
 .card-body input[type="text"]::placeholder {
@@ -147,3 +139,33 @@ input[type="radio"]:checked+.radio-label {
     color: #fff;
 
 }
+.adress input[type="text"]
+ {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 2px solid #6b6868;
+  border-radius: 0 !important;
+  outline: none;
+  width: 100%;
+  
+}
+.adress input[type="file"]{ 
+    outline: none;
+    border: none;
+
+}
+
+
+.adress input[type="file"]::file-selector-button {
+  padding: 5px 10px;
+  background-color: #000093;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 50%;
+  font-size: 12px;
+
+}
+

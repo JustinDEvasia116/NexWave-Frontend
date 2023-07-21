@@ -54,11 +54,11 @@ const Chatbot = () => {
               </button>
             ))}
             {optionHistory.length > 0 && (
-        <button className="previous-button" onClick={handlePreviousOptionClick}>
-          Previous Option
-        </button>
-      )}
-            
+              <button className="previous-button" onClick={handlePreviousOptionClick}>
+                Previous Option
+              </button>
+            )}
+
           </div>
         </>
       )}
