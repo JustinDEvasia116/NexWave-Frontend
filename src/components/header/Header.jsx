@@ -27,7 +27,9 @@ const Header = () => {
         </ul>
       </nav>
       <div className="profile-logo">
-        <img src="https://e7.pngegg.com/pngimages/442/477/png-clipart-computer-icons-user-profile-avatar-profile-heroes-profile.png" alt="Profile Logo" />
+        <a href="/profile">
+          <img src="https://e7.pngegg.com/pngimages/442/477/png-clipart-computer-icons-user-profile-avatar-profile-heroes-profile.png" alt="Profile Logo" />
+        </a>
       </div>
     </header>
   );
