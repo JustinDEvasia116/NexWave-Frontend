@@ -45,8 +45,12 @@ const Recharges = () => {
       .get('recharge-plans/')
       .then((response) => {
         setAllplans(response.data);
-        const filteredPlans = response.data.filter((plan) => plan.category === 1);
-        setRechargePlans(filteredPlans);
+        if (Array.isArray(response.data)) { // Check if response.data is an array
+          const filteredPlans = response.data.filter((plan) => plan.category === 1);
+          setRechargePlans(filteredPlans);
+        } else {
+          console.error('Response data is not an array:', response.data);
+        }
       })
       .catch((error) => console.error(error));
 
@@ -104,7 +108,11 @@ const Recharges = () => {
             'Content-Type': 'application/json',
           },
         });
-        setRechargePlans(response.data);
+        if (Array.isArray(response.data)) { // Check if response.data is an array
+          setRechargePlans(response.data);
+        } else {
+          console.error('Response data is not an array:', response.data);
+        }
       } catch (error) {
         console.error('Error:', error);
       }
