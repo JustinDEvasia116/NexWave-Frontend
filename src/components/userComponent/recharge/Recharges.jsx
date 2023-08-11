@@ -49,7 +49,7 @@ const Recharges = () => {
           const filteredPlans = response.data.filter((plan) => plan.category === 1);
           setRechargePlans(filteredPlans);
         } else {
-          console.error('Response data is not an array:', response.data);
+          console.error('Response data is not at all an array:', response.data);
         }
       })
       .catch((error) => console.error(error));
@@ -111,7 +111,7 @@ const Recharges = () => {
         if (Array.isArray(response.data)) { // Check if response.data is an array
           setRechargePlans(response.data);
         } else {
-          console.error('Response data is not an array:', response.data);
+          console.error('Response data is not at all an array:', response.data);
         }
       } catch (error) {
         console.error('Error:', error);
