@@ -5,9 +5,7 @@ import { adminInstance } from '../../../../axios';
 
 function UserManagement() {
   const [users, setUsers] = useState([]);
-
   const authTokens = JSON.parse(localStorage.getItem('authTokens'));
-
   useEffect(() => {
     getUserList();
   }, []);
@@ -19,8 +17,7 @@ function UserManagement() {
           'Content-type': 'application/json',
           Authorization: 'Bearer ' + String(authTokens.access),
         },
-      });
-  
+      });  
       console.log('response data:', response.data);
       setUsers(response.data);
       console.log("users:",users);

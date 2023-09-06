@@ -37,15 +37,7 @@ function App() {
               )
             }
           />
-      <Route exact path="/"
-            element={
-              (
-                <PrivateRoute
-                  element={<ProfilePage/>}
-                />
-              )
-            }
-          />
+
           
         <Route exact path="/admins/"
             element={
@@ -58,6 +50,7 @@ function App() {
           />
           
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage/>} />
         <Route path="/chatbot" element={<ChatbotPage/>} />
         <Route path="/chat" element={<ChatscreenPage/>} />
