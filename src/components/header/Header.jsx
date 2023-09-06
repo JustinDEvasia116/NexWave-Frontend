@@ -12,17 +12,17 @@ const Header = () => {
           <li>
             <a href="/home">Home</a>
           </li>
-          <li>
-            <a href="/prepaid">Prepaid</a>
+          {/* <li>
+            <a href="/home">Prepaid</a>
           </li>
           <li>
-            <a href="/postpaid">Postpaid</a>
-          </li>
+            <a href="/home">Postpaid</a>
+          </li> */}
           <li>
             <a href="/recharge">Recharge</a>
           </li>
           <li>
-            <a href="/pay-bills">Pay Bills</a>
+            <a href="/home">Pay Bills</a>
           </li>
         </ul>
       </nav>
